@@ -1,18 +1,16 @@
 package com.navraj.springbootclass.repo;
 
 import com.navraj.springbootclass.entity.Post;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface PostRepo {
-    public List<Post> findAll();
+public interface PostRepo extends CrudRepository<Post, Long> {
+    List<Post> findAll();
 
-    public Post findById(int id);
+    Post findById(int id);
 
-    public void save(Post p);
+    Post save(Post p);
 
-    public void delete(int id);
-
-    public void update(int id, Post p);
-
+    void deleteById(int id);
 }
