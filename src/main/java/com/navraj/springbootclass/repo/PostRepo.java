@@ -13,4 +13,6 @@ public interface PostRepo extends CrudRepository<Post, Long> {
     Post save(Post p);
 
     void deleteById(int id);
+
+    List<Post> findPostsByTitleIs(String title);
 }

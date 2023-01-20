@@ -18,4 +18,6 @@ public interface PostService {
     void delete(int id);
 
     void update(int id, PostDto p);
+
+    List<PostDto> findPostsByTitleIs(String title);
 }

@@ -1,5 +1,6 @@
 package com.navraj.springbootclass.controller;
 
+import com.navraj.springbootclass.entity.Post;
 import com.navraj.springbootclass.entity.dto.PostDto;
 import com.navraj.springbootclass.service.PostService;
 import org.springframework.web.bind.annotation.*;
@@ -33,12 +34,17 @@ public class PostController {
         return postService.findById(id);
     }
 
-    @GetMapping("/filter")
+    @GetMapping(value = "/filter",params = "authorName")
     public List<PostDto> findPostByAuthor(@RequestParam(value = "authorName") String authorName) {
         return findAll()
                 .stream()
                 .filter(postDto -> postDto.getAuthor().equals(authorName))
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/filter",params = "title")
+    public List<PostDto> findPostByTitleIs(@RequestParam(value = "title") String title){
+        return postService.findPostsByTitleIs(title);
     }
 
     @PostMapping

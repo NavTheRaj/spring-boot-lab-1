@@ -1,28 +1,24 @@
 package com.navraj.springbootclass.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-@Entity
 @Data
-@Table(name = "_user")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
-    String name;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    @JsonManagedReference
-    List<Post> posts;
+    private long id;
+    private String name;
+
+    @ManyToOne
+    @JsonBackReference
+    private Post post;
 
 }

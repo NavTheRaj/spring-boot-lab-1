@@ -1,5 +1,6 @@
 package com.navraj.springbootclass.controller;
 
+import com.navraj.springbootclass.entity.Comment;
 import com.navraj.springbootclass.entity.Post;
 import com.navraj.springbootclass.entity.User;
 import com.navraj.springbootclass.service.UserService;
@@ -37,8 +38,31 @@ public class UserController {
         return userService.getPostsById(id);
     }
 
-    @GetMapping("/filter")
-    public List<User> findUsersByPostsGreaterThan1() {
-        return userService.findUsersByPostsGreaterThan();
+    @GetMapping(value = "/filter",params = "posts")
+    public List<User> findUsersByPostsGreaterThan1(@RequestParam("posts") int size) {
+        return userService.findUsersByPostsGreaterThan(size);
+    }
+
+    @GetMapping(value = "/filter",params = "title")
+    public List<User> findUsersWithPostsTitleWithin(@RequestParam("title") String title){
+        return userService.findUsersWithPostsTitleWithin(title);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable("id") long id){
+        userService.deleteById(id);
+    }
+
+    /*
+    navigate from your user to a post, then to a comment
+     */
+
+    @GetMapping("/{userId}/posts/{postId}/comments/{commentId}")
+    public Comment findCommentOfUserThroughPost(
+            @PathVariable("userId") long userId,
+            @PathVariable("postId") long postId,
+            @PathVariable("commentId") long commentId
+            ){
+        return userService.findCommentOfUserThroughPost(userId,postId,commentId);
     }
 }

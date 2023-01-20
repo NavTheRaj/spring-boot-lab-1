@@ -5,7 +5,7 @@ import com.navraj.springbootclass.entity.dto.PostDto;
 import com.navraj.springbootclass.entity.dto.PostDto2;
 import com.navraj.springbootclass.helper.EntityListMapper;
 import com.navraj.springbootclass.repo.PostRepo;
-import com.navraj.springbootclass.repo.UserRepo;
+//import com.navraj.springbootclass.repo.UserRepo;
 import com.navraj.springbootclass.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,7 +20,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepo postRepo;
 
-    private final UserRepo userRepo;
+//    private final UserRepo userRepo;
 
     @Autowired
     ModelMapper modelMapper;
@@ -60,14 +60,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post save(PostDto p) {
 
-        Post postToCreate = new Post();
-        postToCreate.setContent(p.getContent());
-        postToCreate.setAuthor(p.getAuthor());
-        postToCreate.setTitle(p.getTitle());
-
-        var user = userRepo.findById(p.getUserId());
-        postToCreate.setUser(user);
-        return postRepo.save(postToCreate);
+//        Post postToCreate = new Post();
+//        postToCreate.setContent(p.getContent());
+//        postToCreate.setAuthor(p.getAuthor());
+//        postToCreate.setTitle(p.getTitle());
+//
+//        var user = userRepo.findById(p.getUserId());
+//        postToCreate.setUser(user);
+        return postRepo.save(modelMapper.map(p, Post.class));
     }
 
     @Override
@@ -82,7 +82,10 @@ public class PostServiceImpl implements PostService {
         postToUpdate.setAuthor(p.getAuthor());
         postToUpdate.setTitle(p.getTitle());
         postRepo.save(postToUpdate);
-//        postRepo.update(id, modelMapper.map(p, Post.class));
+    }
 
+    @Override
+    public List<PostDto> findPostsByTitleIs(String title) {
+        return postDtoEntityListMapper.map(postRepo.findPostsByTitleIs(title), new PostDto());
     }
 }

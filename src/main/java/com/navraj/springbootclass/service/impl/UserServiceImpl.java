@@ -1,8 +1,8 @@
 package com.navraj.springbootclass.service.impl;
 
+import com.navraj.springbootclass.entity.Comment;
 import com.navraj.springbootclass.entity.Post;
 import com.navraj.springbootclass.entity.User;
-import com.navraj.springbootclass.repo.PostRepo;
 import com.navraj.springbootclass.repo.UserRepo;
 import com.navraj.springbootclass.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -33,13 +33,29 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deleteById(long id){
+        userRepo.deleteById(id);
+    }
+
+    @Override
+    public List<User> findUsersWithPostsTitleWithin(String title) {
+        return userRepo.findUsersWithPostsTitleWithin(title);
+    }
+
+    @Override
+    public Comment findCommentOfUserThroughPost(long userId, long postId, long commentId) {
+        return userRepo.findCommentOfUserThroughPost(userId,postId,commentId);
+    }
+
+    @Override
     public List<Post> getPostsById(long id) {
         return userRepo.getPostsById(id);
     }
 
     @Override
-    public List<User> findUsersByPostsGreaterThan() {
-        return userRepo.findUsersWithMoreThanOnePost();
+    public List<User> findUsersByPostsGreaterThan(int size) {
+        return userRepo.findUsersWithMoreThanOnePost(size);
     }
+
 
 }
