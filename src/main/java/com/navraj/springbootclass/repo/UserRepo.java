@@ -15,6 +15,8 @@ public interface UserRepo extends CrudRepository<User, Long> {
 
     User save(User user);
 
+    User findByEmail(String email);
+
     void deleteById(long id);
 
     @Query(value = "SELECT u.posts from User u WHERE u.id = :id")

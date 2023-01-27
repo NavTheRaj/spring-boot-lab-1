@@ -2,12 +2,12 @@ spring:
   application:
     name: springlab2
   datasource:
-    password: postgres
+    password: 1
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
