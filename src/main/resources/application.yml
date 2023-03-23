@@ -3,8 +3,8 @@ spring:
     name: springlab2
   datasource:
     password: VZZCFD2CZ60A1T07$
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: g=khjjxpapru
+    url: jdbc:mysql://springdb-server.mysql.database.azure.com:3306/spring-db-server??useSSL=true&requireSSL=true
+    username: khjjxpapru
   jpa:
     hibernate:
       ddl-auto: create
