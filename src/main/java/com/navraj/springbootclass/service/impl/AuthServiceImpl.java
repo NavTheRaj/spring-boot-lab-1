@@ -5,6 +5,7 @@ import com.navraj.springbootclass.entity.dto.request.RefreshTokenRequest;
 import com.navraj.springbootclass.entity.dto.response.LoginResponse;
 import com.navraj.springbootclass.service.AuthService;
 import com.navraj.springbootclass.util.JwtUtil;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,13 +50,18 @@ public class AuthServiceImpl implements AuthService {
             // TODO (check the expiration of the accessToken when request sent, if the is recent according to
             //  issue Date, then accept the renewal)
             var isAccessTokenExpired = jwtUtil.isTokenExpired(refreshTokenRequest.getAccessToken());
-            if(isAccessTokenExpired)
+            if (isAccessTokenExpired) {
+                String renewedAccessToken = jwtUtil.doGenerateToken(jwtUtil.getSubject(refreshTokenRequest.getRefreshToken()));
                 System.out.println("ACCESS TOKEN IS EXPIRED"); // TODO Renew is this case
-            else
+                var loginResponse = new LoginResponse(renewedAccessToken,refreshTokenRequest.getRefreshToken());
+                return loginResponse;
+            } else {
+
                 System.out.println("ACCESS TOKEN IS NOT EXPIRED");
+            }
             final String accessToken = jwtUtil.doGenerateToken(
-                        jwtUtil
-                          .getSubject(refreshTokenRequest.getRefreshToken())
+                    jwtUtil
+                            .getSubject(refreshTokenRequest.getRefreshToken())
             );
             var loginResponse = new LoginResponse(accessToken, refreshTokenRequest.getRefreshToken());
             // TODO (OPTIONAL) When to renew the refresh token?

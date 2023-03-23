@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
-                .requestMatchers("api/v1/user/**").permitAll()
+                .requestMatchers("/api/v1/user/**").permitAll()
                 .requestMatchers("/api/v1/admin/**").hasAuthority("ADMIN")
                 .anyRequest()
                 .authenticated()
