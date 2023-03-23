@@ -2,9 +2,9 @@ spring:
   application:
     name: springlab2
   datasource:
-    password: 1
+    password: D23R7C7Q7DOP0AA8$
     url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
+    username: gethebdzpy
   jpa:
     hibernate:
       ddl-auto: create
